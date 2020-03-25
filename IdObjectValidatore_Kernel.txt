@@ -1,0 +1,38 @@
+$['identity']['region'][0]['language']=fra, $['identity']['addressLine2'][1]['language']=ara, $['identity']['localAdministrativeAuthority'][1]['language']=ara, $['identity']['localAdministrativeAuthority'][0]['language']=fra, $['identity']['addressLine2'][0]['language']=fra, $['identity']['residenceStatus'][0]['language']=fra, $['identity']['residenceStatus'][1]['language']=ara, $['identity']['region'][1]['language']=ara, $['identity']['addressLine1'][0]['language']=fra, $['identity']['gender'][1]['language']=ara, $['identity']['addressLine1'][1]['language']=ara, $['identity']['addressLine3'][1]['language']=ara, $['identity']['gender'][0]['language']=fra, $['identity']['addressLine3'][0]['language']=fra, $['identity']['fullName'][1]['language']=ara, $['identity']['city'][1]['language']=ara, $['identity']['province'][0]['language']=fra, $['identity']['fullName'][0]['language']=fra, $['identity']['city'][0]['language']=fra, $['identity']['province'][1]['language']=ara}
+
+
+
+
+
+Actual input
+
+{$['identity']['gender'][1]['language']=$['identity']['gender'][1]['value']=ML, $['identity']['gender'][0]['language']=$['identity']['gender'][0]['value']=ML}
+
+Load Gender
+{ara=[?????, ????, FLE, MLE], fra=[Femelle, FLE], eng=[Female, FLE]}
+
+
+Gender Response from masterdata
+
+ResponseWrapper(id=null, version=null, responsetime=2019-05-28T16:02:02.939, metadata=null, 
+response={genderType=[{code=MLE, genderName=Male, langCode=eng, isActive=true}, {code=FLE, genderName=Female, langCode=eng, isActive=true}, 
+{code=MLE, genderName=?????, langCode=ara, isActive=true}, {code=FLE, genderName=????, langCode=ara, isActive=true},
+ {code=MLE, genderName=Mâle, langCode=fra, isActive=true}, {code=FLE, genderName=Femelle, langCode=fra, isActive=true}]}, errors=null)
+
+
+Gender Map=
+
+{ara=[?????, ????, FLE, MLE], fra=[Mâle, Femelle, FLE, MLE], eng=[Female, Male, FLE, MLE]}
+
+
+
+Response Gender Masterdata
+
+ResponseWrapper(id=null, version=null, responsetime=2019-05-28T16:06:42.942, metadata=null, response=
+{genderType=[{code=MLE, genderName=Male, langCode=eng, isActive=true}, {code=FLE, genderName=Female, langCode=eng, isActive=true},
+ {code=MLE, genderName=?????, langCode=ara, isActive=true}, {code=FLE, genderName=????, langCode=ara, isActive=true}, 
+{code=MLE, genderName=Mâle, langCode=fra, isActive=true}, {code=FLE, genderName=Femelle, langCode=fra, isActive=true}]}, errors=null)
+
+
+
+{ara=[?????, ????, FLE, MLE], fra=[Mâle, Femelle, FLE, MLE], eng=[Female, Male, FLE, MLE]} 

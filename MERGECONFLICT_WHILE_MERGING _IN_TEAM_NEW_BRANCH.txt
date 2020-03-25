@@ -1,0 +1,49 @@
+UI Merge Conflicts
+=================================================================
+Auto-merging pre-registration/pre-registration-ui/src/app/feature/file-upload/file-upload/file-upload.component.ts     
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-ui/src/app/feature/file-upload/file-upload/file-upload.component.ts
+Auto-merging pre-registration/pre-registration-ui/src/app/shared/dialoug/dialoug.component.html                         
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-ui/src/app/shared/dialoug/dialoug.component.html
+Auto-merging pre-registration/pre-registration-ui/src/app/feature/demographic/demographic/demographic.component.ts
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-ui/src/app/feature/demographic/demographic/demographic.component.ts
+Auto-merging pre-registration/pre-registration-ui/src/app/feature/demographic/demographic/demographic.component.html   
+ CONFLICT (content): Merge conflict in pre-registration/pre-registration-ui/src/app/feature/demographic/demographic/demographic.component.html                                                                                                   
+Auto-merging pre-registration/pre-registration-ui/src/app/feature/demographic/demographic/demographic.component.css
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-ui/src/app/feature/demographic/demographic/demographic.component.css
+Auto-merging pre-registration/pre-registration-ui/src/app/feature/dashboard/dashboard/dashboard.component.ts            
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-ui/src/app/feature/dashboard/dashboard/dashboard.component.ts                                                                                                          
+ Auto-merging pre-registration/pre-registration-ui/src/app/core/header/header.component.css
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-ui/src/app/core/header/header.component.css   
+==================================================================================================================
+
+Notification Service:
+===============================
+Auto-merging pre-registration/pre-registration-notification-service/src/test/java/io/mosip/preregistration/notification/service/NotificationServiceTest.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-notification-service/src/test/java/io/mosip/preregistration/notification/service/NotificationServiceTest.java
+Auto-merging pre-registration/pre-registration-notification-service/src/main/resources/bootstrap.properties
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-notification-service/src/main/resources/bootstrap.properties
+Auto-merging pre-registration/pre-registration-notification-service/src/main/java/io/mosip/preregistration/notification/service/NotificationService.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-notification-service/src/main/java/io/mosip/preregistration/notification/service/NotificationService.java
+Auto-merging pre-registration/pre-registration-notification-service/src/main/java/io/mosip/preregistration/notification/exception/util/NotificationExceptionCatcher.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-notification-service/src/main/java/io/mosip/preregistration/notification/exception/util/NotificationExceptionCatcher.java
+Auto-merging pre-registration/pre-registration-notification-service/src/main/java/io/mosip/preregistration/notification/exception/IllegalParamException.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-notification-service/src/main/java/io/mosip/preregistration/notification/exception/IllegalParamException.java     
+====================================
+
+PREREG CORE:
+====================================================
+Auto-merging pre-registration/pre-registration-core/src/main/java/io/mosip/preregistration/core/util/TemplateUtil.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-core/src/main/java/io/mosip/preregistration/core/util/TemplateUtil.java
+Auto-merging pre-registration/pre-registration-core/src/main/java/io/mosip/preregistration/core/util/NotificationUtil.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-core/src/main/java/io/mosip/preregistration/core/util/NotificationUtil.java
+Auto-merging pre-registration/pre-registration-core/src/main/java/io/mosip/preregistration/core/common/dto/NotificationDTO.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-core/src/main/java/io/mosip/preregistration/core/common/dto/NotificationDTO.java
+Auto-merging pre-registration/pre-registration-core/src/main/java/io/mosip/preregistration/core/code/RequestCodes.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-core/src/main/java/io/mosip/preregistration/core/code/RequestCodes.java
+=====================================================
+
+BOOKING
+====================================
+Auto-merging pre-registration/pre-registration-booking-service/src/main/java/io/mosip/preregistration/booking/service/BookingService.java
+CONFLICT (content): Merge conflict in pre-registration/pre-registration-booking-service/src/main/java/io/mosip/preregistration/booking/service/BookingService.java
+=======================================

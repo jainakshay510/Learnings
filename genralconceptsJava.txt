@@ -1,0 +1,9 @@
+
+1.For converting string to Local date with a specified format
+
+String date="03/12/20139";
+		 DateTimeFormatter parseFormatter
+        = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		 System.out.println(LocalDate.parse(date, parseFormatter));
+
+2.@JSONformat is used when we want jackson databind to convert a string variable defined in json request body to the variable with type Date in defined DTO

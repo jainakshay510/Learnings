@@ -1,0 +1,9 @@
+
+Generally it is implemented using reflection. Java has ability to access methods and fields of object using their names. This is called reflection. In your case JSON library that you are using does this magic.
+
+First it finds which class must be instantiated. It gets it from the type of argument of method login(). It creates instance using code like
+
+Class.forName("UserCl").newInstance()
+(that requires public default constructor. Your class does not define any constructor and therefore has one default constructor implicitly.)
+
+Then it discovers the class UserCl, finds setPassword() and setUsername() and calls them passing values of appropriate JSON attributes.
