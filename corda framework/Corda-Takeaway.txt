@@ -1,0 +1,171 @@
+Corda Nodes:
+=============
+Corda nodes run within a Java virtual machine. In brief, processing involves: 
+
+Storage services and vaults backed by a SQL DB 
+Attachments stored separately in a dedicated folder 
+RPC client framework and server shell for communication amongst network nodes
+Built-in extensions or custom functionality called CorDapps
+Vault: stores output states relevant to a particular node  
+Transaction storage: key value store for attachments, transactions, and serialized state machines (SSM) 
+Flow State Machine Manager: manages operation of flow state machines 
+Identity/Key Management: manages various supported identities and generated keys used to sign transactions
+Scheduler: schedules operations for future points in time
+Network Map:  searchable phone book of nodes on network 
+Notary: obtains authorized signatures 
+Messaging: interface with other nodes for communication 
+Network maps and notaries are optional inclusions. Contracts are built to govern how states operate and flows are designed to contain the core business logic for how states should be used on the ledger. 
+
+The PlugIn Registries keeps track of custom functionality.  
+
+Corda States:
+===================
+1. States are immutable objects that represent shared facts such as an agreement or contract at a specific point in time.
+2. The life cycle of a shared fact or agreement over time is represented by a state sequence.
+3. The ledger from each peer's point of view consists of all the state sequence heads tracked in the vault.
+4. States only contain data
+5. States represent shared facts.
+6. The vault tracks the current state of the ledger.
+7. The current state of the ledger is made up of all the heads of all state sequences. You can query the vault for the all the heads of each state sequence or by type (e.g. all bond states).
+8. Historic states are not considered "on-ledger" but they remain accessible and provide a useful audit trail. States are never deleted.
+9. A sequence of states represents the life cycle of an agreement. It is created after one or more state transitions.
+
+Corda Legal Prose:
+=====================
+1. A hash of the legal prose is referenced in a contract. We can also store the legal prose as an attachment. 
+2. The legal prose remains constant for the duration of a state’s life-cycle unless required peers opt to novate.
+3. Legal prose is referenced within contracts.
+4. Legal prose can be relied upon when the contract code alone is insufficient.
+
+Corda Contracts:
+=====================
+1. Each State reference a contract and Legal prose
+2. Legal Prose --'Code is Law'
+3. As transactions may contain multiple state types, multiple contracts can be referenced in a transaction.
+4. Corda will use all referenced contract code to verify a (proposed) transaction.
+5. fun verify(tx: Transaction): Unit
+6. Contract code is a "pure" function executed in a deterministic environment on a need-to-know basis.
+7. Since the whole point of Corda is to facilitate bringing potentially distrusting parties into consensus about shared facts, the platform requires a common definition of transaction verification for each state type.
+8. The verification function must be a deterministic function.
+9. Random number generators and uncontrolled referencing of data external to the ledger which may change are sources of non-determinism and hence must not be used.
+// Transaction must have zero inputs.
+tx.inputs.size() == 0
+
+// Transaction must have one output.
+tx.outputs.size() == 1
+
+// The lender cannot be the borrower.
+tx.outputs[0].lender != tx.outputs[0].borrower
+
+// The output state must contain an amount > 0.
+tx.outputs[0].amount > 0
+
+Corda Ledger:
+================
+1. The Corda network is best represented as a fully-connected graph containing nodes.
+2. There is no global broadcast or gossip network on Corda.
+3. Corda nodes discover each other via a network map service. 
+4. Each Corda node includes a vault, and every vault contains facts.
+5. These facts can be shared with other nodes on the network.
+6. The Corda Ledger is subjective from each peer's perspective.
+7. Unilateral Fact & Bilateral Fact
+
+Corda Transactions:
+=======================
+1. Transactions need to be committed before they update the ledger.
+2. To commit a transaction it must be signed by all required peers. 
+3. Uncommitted transactions are transactions which have not yet been signed by all required peers. Uncommitted transactions are proposals to update the ledger. Any peer on the network can propose a transaction. Transaction proposals are signed by other peers on the network on a need-to-know basis.
+4. Digital signatures enforce output state immutability
+5. Transactions are not instructions which require action.Instead, transaction creators calculate an updated ledger which is reflected by the output states. The output states are the updated ledger. 
+6. Transactions are an atomic set of changes to update the ledger.
+7. Transactions are committed and update the ledger only when signed by all required peers.
+8. Uncommitted transactions are proposals to update the ledger.
+9. Committed transactions enforce output state immutability because they are digitally signed.
+10. Once a transaction is committed, it marks the input state references as historic and creates new output states reflecting an updated ledger.
+11. Transactions are not instructions which require action. 
+12. Transaction proposals require verification which is performed separately to transaction creation.
+13. A transaction is a container that contains zero or more input state references and produces zero or more output states.
+14. The input state reference that is consumed is marked as historic.
+15. A transaction in Corda is an indivisible and irreducible set of changes that either all occur or don't occur at all.
+16. Any on-ledger state can be referenced by a (transaction ID, index) coordinate.
+17. New transactions reference prior transactions by hash, building up an immutable chain-like structure.
+
+
+Corda Commands:
+=====================
+1. Commands parameterize transactions.
+2. Commands hint the intent of the transaction.
+3. Commands specify the required signers via a list of public keys.
+4. Commands also hint to the intention of a transaction. Commands may also contain arbitrary data signed over by an Oracle service.
+5. The required signers for a whole transaction is the union of all public keys defined in all commands.
+More examples of commands:
+
+Issue a new state on the ledger
+Transfer the asset to another peer on the ledger
+Pay some cash to another peer on the ledger
+Redeem an asset and extinguish the state representing it
+Exercise an option
+Settle an obligation to deliver an asset
+Net a set of fungible obligations
+
+Corda Attachments:
+==================
+1. Attachments are zip files.
+2. Attachments are referenced in a transaction by hash value.
+3. Attachments are not included in the transaction itself.
+4. the transaction contains three attachments of different types:
+		a. IOU Contract bytecode
+		b. Legal prose
+		c. Static reference data
+
+Corda Time Windows:
+=======================
+1. Time windows specify a time range within which a transaction is asserted to have occurred.
+2. Corda uses time windows, instead of specific points in time, because in a distributed system there is no true time -- only a large number of de-synchronized clocks.
+3. For a time window to be meaningful, its implications must be binding on the peers specifying it. Peers to a transaction need to be compelled to commit a time windowed transaction before or at or after the specified time. The notary acts as a time window authority. If a transaction has a time window, then it requires a signature by the notary service.
+4. Time windows assert that a transaction happened before, after, or within a specified time range.
+5. Time windows can be used to enforce contractual logic.
+6. The notary acts as a time window authority.
+
+Corda Oracles:
+=================
+The architecture provides two ways of implementing oracles with different tradeoffs:
+	a. Using commands
+	b. Using attachments
+Currently attachments do not support digital signing, but this is a planned feature.
+
+	a. Is your data continuously changing, like a stock price, the current time, etc? If yes, use a command.
+	b. Is your data commercially valuable, like a feed which you are not allowed to resell unless it’s incorporated into a business deal? If yes, use a command, so you can charge money for signing the same fact in each unique business context.
+	c. Is your data very small, like a single number? If yes, use a command.
+	d. Is your data large, static and commercially worthless, for instance, a holiday calendar? If yes, use an attachment.
+	e. Is your data intended for human consumption, like a PDF of legal prose, or an Excel spreadsheet? If yes, use an attachment.
+
+Commands:
+=========
+	Use for small or regularly changing data
+	Suitable where there is commercial sensitivity due to licensing
+Attachments
+	Use for large data, particularly if it does not change regularly
+	Not suitable for licensed facts
+
+Oracles can also be seen as a source of data or calculations that have been accepted by the parties of the transaction as being authoritative, binding and definitive for an agreed set of values or range of calculations.
+
+Corda Oracle Implementation Stages:
+=======================================
+1. The creator of the transaction that depends on the interest rate asks for the current rate. They can abort at this point if they want to.
+2. They insert a command with that rate and the time it was obtained into the transaction.
+3. They then send it to the oracle for signing, along with everyone else, potentially in parallel. The oracle checks that the command has the correct data for the asserted time, and signs if so.
+
+Corda Notaries:
+================
+
+Notary services provide uniqueness consensus.
+when a peer wishes to commit a transaction, signatures are needed from all the required peers (the ones whose public keys are listed in the commands.
+
+Who can update a state is not defined by the participants field or owner field:
+=============================================================================
+	1. Anyone can propose a transaction updating a state.
+	2. To become part of the ledger, it must be signed by all the required signers
+	3. The required signers are determined by the state's contracts
+It is not required for there to be any correspondence between the participants and the required signers. They can be completely different.
+The any participants of LinearState or the owner of OwnableState only can update the state exists on the ledger.
